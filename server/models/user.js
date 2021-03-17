@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import bcrypt from 'bcrypt';
 
 /**
@@ -12,16 +13,27 @@ export default (sequelize, DataTypes) => {
    * @type {Sequelize.Model}
   */
 
+  /**
+   * A model class representing user resource
+   *
+   * @class User
+  */
   class User extends Model {
     /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-    */
+     * @static
+     * @param {Object} models - Model object
+     * @returns {void}
+     */
     static associate(models) {
+      /*
+      * Helper method for defining associations.
+      * This method is not a part of Sequelize lifecycle.
+      * The `models/index` file will call this method automatically.
+      */
+
       // define association here
     }
-  };
+  }
   User.init({
     // Model attributes are defined here
     email: {
@@ -54,4 +66,4 @@ export default (sequelize, DataTypes) => {
     modelName: 'User', // We need to choose the model name
   });
   return User;
-}
+};

@@ -28,11 +28,11 @@ fs
   .readdirSync(__dirname)
   .filter(onlyModels)
   .forEach(file => {
-    const model = require(path.join(__dirname, file));
+    const model = sequelize.import(path.join(__dirname, file));
     try {
       db[model.name] = model;
     } catch (err) {
-      logger.log(`This is the error ${err}`)
+      logger.log(`This is the error ${err}`);
     }
   });
 

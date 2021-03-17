@@ -37,7 +37,7 @@ export default {
       },
     });
   },
-   /**
+  /**
    * Reverse the migration
    *
    * @param {Sequelize.QueryInterface} queryInterface - The interface that communicates
