@@ -1,7 +1,26 @@
 {
   "name": "iwrite-server",
   "version": "1.0.0",
+  "description": "A Social platform for the creative at heart",
   "main": "index.js",
   "author": "Alexandra <andracolexacareer@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "migrate": " sequelize db:migrate",
+    "dev": "nodemon src/server --exec babel-node -e js",
+    "start": "node src/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.21.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "sequelize": "^6.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "nodemon": "^2.0.7"
+  }
 }
