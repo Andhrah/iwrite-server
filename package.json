@@ -6,16 +6,20 @@
   "author": "Alexandra <andracolexacareer@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "babel server -d dist",
+    "clean": "rimraf dist",
     "migrate": " sequelize db:migrate",
     "migrate:refresh": "yarn run migrate:reset && yarn run migrate",
     "migrate:reset": "sequelize db:migrate:undo:all",
     "migrate:undo": "yarn run sequelize -- db:migrate:undo",
     "dev": "nodemon -r dotenv/config server --exec babel-node -e js",
-    "start": "yarn run build && nodemon dist/index.js",
+    "start": "yarn run build  && node -r dotenv/config dist/index.js",
+    "prebuild": "npm run clean",
     "start:dev": "nodemon --exec yarn run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.10",
     "apollo-server": "^2.21.1",
     "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",

@@ -53,6 +53,7 @@ const me = async (root, { id, email }) => {
   if (!email) throw new Error('You are not authenticated');
   return models.User.findByPk(id);
 };
+
 const getUser = async (root, { id }, { user }) => {
   try {
     if (!user) throw new Error('You are not authenticated!');
@@ -61,6 +62,7 @@ const getUser = async (root, { id }, { user }) => {
     throw new Error(error.message);
   }
 };
+
 const getAllUsers = async (root, args, { user }) => {
   try {
     if (!user) throw new Error('You are not authenticated!');
