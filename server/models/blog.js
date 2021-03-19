@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { Model } from 'sequelize';
 
 /**
@@ -16,9 +15,9 @@ export default (sequelize, DataTypes) => {
   /**
    * A model class representing user resource
    *
-   * @class User
+   * @class Blog
   */
-  class User extends Model {
+  class Blog extends Model {
     /**
      * @static
      * @param {Object} models - Model object
@@ -32,25 +31,22 @@ export default (sequelize, DataTypes) => {
       */
 
       // define association here
-      User.hasMany(models.Blog, { foreignKey: 'authorId' });
+      Blog.belongsTo(models.User, {
+        onDelete: 'CASCADE',
+        targetKey: 'id',
+        foreignKey: 'authorId'
+      });
     }
   }
-  User.init({
+  Blog.init({
     // Model attributes are defined here
-    email: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: { msg: 'Must be a valid email address' }
-      }
     },
-    password: {
-      type: DataTypes.STRING,
+    body: {
+      type: DataTypes.TEXT,
       allowNull: false,
-      set(value) {
-        this.setDataValue('password', bcrypt.hashSync(value, 10));
-      },
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -68,7 +64,32 @@ export default (sequelize, DataTypes) => {
   }, {
     // Other model options go here
     sequelize, // We need to pass the connection instance
-    modelName: 'User', // We need to choose the model name
+    modelName: 'Blog', // We need to choose the model name
   });
-  return User;
+  return Blog;
 };
+
+// 'use strict';
+// const {
+//   Model
+// } = require('sequelize');
+// module.exports = (sequelize, DataTypes) => {
+//   class Blog extends Model {
+//     /**
+//      * Helper method for defining associations.
+//      * This method is not a part of Sequelize lifecycle.
+//      * The `models/index` file will call this method automatically.
+//      */
+//     static associate(models) {
+//       // define association here
+//     }
+//   };
+//   Blog.init({
+//     title: DataTypes.STRING,
+//     body: DataTypes.TEXT
+//   }, {
+//     sequelize,
+//     modelName: 'Blog',
+//   });
+//   return Blog;
+// };
