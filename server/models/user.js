@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import bcrypt from 'bcrypt';
+import { Model } from 'sequelize';
 
 /**
  * A model class representing user resource
@@ -39,6 +40,10 @@ export default (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: { msg: 'Must be a valid email address' }
+      }
     },
     password: {
       type: DataTypes.STRING,
