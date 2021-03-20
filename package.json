@@ -8,6 +8,7 @@
   "scripts": {
     "build": "babel server -d dist",
     "clean": "rimraf dist",
+    "heroku-postbuild": "npm run migrate",
     "migrate": " sequelize db:migrate",
     "migrate:refresh": "yarn run migrate:reset && yarn run migrate",
     "migrate:reset": "sequelize db:migrate:undo:all",
