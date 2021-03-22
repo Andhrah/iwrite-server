@@ -8,7 +8,7 @@ export default {
    * @return {void}
    */
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Blogs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,6 +20,21 @@ export default {
       },
       body: {
         type: Sequelize.TEXT
+      },
+      image: {
+        type: Sequelize.STRING
+      },
+      readTime: {
+        type: Sequelize.STRING
+      },
+      authorId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

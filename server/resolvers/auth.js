@@ -21,7 +21,7 @@ const register = async (root, { email, password }) => {
     return {
       user,
       token,
-      message: 'Authentication succesfull'
+      message: 'Account was successfully created'
     };
   } catch (error) {
     throw new Error(error);
@@ -42,7 +42,8 @@ const login = async (_, { email, password }) => {
     return {
       id: user.id,
       token,
-      user
+      user,
+      message: 'Login was successfully'
     };
   } catch (error) {
     throw new Error(error.message);
