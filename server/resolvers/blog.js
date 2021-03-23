@@ -1,10 +1,12 @@
-/* eslint-disable import/prefer-default-export */
 import models from '../models';
 import blogHelper from '../helpers/blogHelpers';
 import authenticate from '../middlewares/authenticate';
 
 const { Blog } = models;
 
+/*
+* Creates a new blog resource
+*/
 const createBlog = async (root, { title, body, image }, { req, res }) => {
   authenticate(req, res);
 
@@ -17,6 +19,7 @@ const createBlog = async (root, { title, body, image }, { req, res }) => {
     const result = await Blog.create(content);
     const blog = JSON.parse(JSON.stringify(result)); // clone result
     return {
+      status: 201,
       blog,
       title,
       body,
@@ -27,4 +30,24 @@ const createBlog = async (root, { title, body, image }, { req, res }) => {
   }
 };
 
-export { createBlog };
+/*
+* Get all created blogs
+*/
+const getAllBlogs = async (root, args, { req, res }) => {
+  authenticate(req, res);
+  try {
+    const blogs = await Blog.findAll({
+      order: [['createdAt', 'DESC']],
+    });
+    const result = JSON.parse(JSON.stringify(blogs));
+    return [{
+      result,
+      status: 200,
+      message: 'Successful'
+    }];
+  } catch (err) {
+    throw Error(err);
+  }
+};
+
+export { createBlog, getAllBlogs };

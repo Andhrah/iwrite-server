@@ -1,9 +1,13 @@
 import bcrypt from 'bcryptjs';
 import models from '../models';
 import { generateToken } from '../helpers/utils';
+import logger from '../helpers/logger';
 
-const { User } = models;
+const { User, Profile } = models;
 
+/*
+* Creates a new user resource
+*/
 const register = async (root, { email, password }) => {
   try {
     const emailExist = await User.findOne({ where: { email } });
@@ -18,6 +22,15 @@ const register = async (root, { email, password }) => {
       password
     });
     const token = await generateToken({ user });
+    user.firstname = '';
+    user.lastname = '';
+    user.bio = '';
+    user.username = '';
+    user.userId = user.id;
+
+    // Creates user profile
+    const userProfile = await Profile.create(user);
+    logger(userProfile);
     return {
       user,
       token,
@@ -28,6 +41,9 @@ const register = async (root, { email, password }) => {
   }
 };
 
+/*
+ * Authenticate a user
+*/
 const login = async (_, { email, password }) => {
   try {
     const user = await User.findOne({ where: { email } });

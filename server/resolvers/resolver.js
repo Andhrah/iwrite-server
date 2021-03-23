@@ -1,8 +1,10 @@
 import { register, login } from './auth';
-import { createBlog } from './blog';
+import { createBlog, getAllBlogs } from './blog';
 
 const resolvers = {
-  Query: {},
+  Query: {
+    getAllBlogs
+  },
   Mutation: {
     register,
     login,

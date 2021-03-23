@@ -5,8 +5,19 @@ const typeDefs = gql`
     id: Int!
     email: String!
   }
-  type Blog {
+  type Result {
     id: Int!
+    title: String!
+    body: String!
+    image: String
+    authorId: Int!
+    createdAt: String
+    updatedAt: String
+  }
+  type Blog {
+    status: Int!
+    result: [Result!]!
+    message: String
   }
   type AuthPayload {
     token: String!
@@ -20,7 +31,7 @@ const typeDefs = gql`
     message: String
   }
   type Query {
-    getAllBlogs: [Blog]
+    getAllBlogs: [Blog!]!
     getUser(id: Int!): User
     getAllUsers: [User!]!
     me(id: Int, email: String): User
