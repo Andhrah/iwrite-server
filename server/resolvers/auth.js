@@ -30,7 +30,6 @@ const register = async (root, { email, password }) => {
 
     // Creates user profile
     const userProfile = await Profile.create(user);
-    logger(userProfile);
     return {
       user,
       token,
