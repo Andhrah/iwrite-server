@@ -42,9 +42,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: { msg: 'Must be a valid email address' }
-      }
+      // validate: {
+      //   isEmail: { msg: 'Must be a valid email address' }
+      // }
     },
     password: {
       type: DataTypes.STRING,
