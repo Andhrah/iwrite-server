@@ -10,13 +10,13 @@
     "clean": "rimraf dist",
     "heroku-postbuild": "npm run migrate",
     "migrate": " sequelize db:migrate",
-    "migrate:refresh": "yarn run migrate:reset && yarn run migrate",
+    "migrate:refresh": "npm run migrate:reset && npm run migrate",
     "migrate:reset": "sequelize db:migrate:undo:all",
-    "migrate:undo": "yarn run sequelize -- db:migrate:undo",
+    "migrate:undo": "npm run sequelize -- db:migrate:undo",
     "dev": "nodemon -r dotenv/config server --exec babel-node -e js",
-    "start": "yarn run build  && node -r dotenv/config dist/index.js",
+    "start": "npm run build  && node -r dotenv/config dist/index.js",
     "prebuild": "npm run clean",
-    "start:dev": "nodemon --exec yarn run dev",
+    "start:dev": "nodemon --exec npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
