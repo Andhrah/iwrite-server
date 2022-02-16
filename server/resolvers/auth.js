@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import models from '../models';
 import { generateToken } from '../helpers/utils';
-import logger from '../helpers/logger';
 
 const { User, Profile } = models;
 
@@ -12,15 +11,13 @@ const register = async (root, { email, password }) => {
   try {
     const emailExist = await User.findOne({ where: { email } });
     if (emailExist) {
-      return {
-        message: 'The email address already exists. If you are registered, proceed to login instead',
-        token: '',
-      };
+      throw new Error('The email address already exists. If you are registered, proceed to login instead');
     }
     const user = await User.create({
       email,
       password
     });
+
     const token = await generateToken({ user });
     user.firstname = '';
     user.lastname = '';
@@ -30,8 +27,8 @@ const register = async (root, { email, password }) => {
 
     // Creates user profile
     const userProfile = await Profile.create(user);
+
     return {
-      user,
       token,
       message: 'Account was successfully created'
     };
